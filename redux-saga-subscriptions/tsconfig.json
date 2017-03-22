@@ -11,6 +11,7 @@
     "jsx": "preserve"
   },
   "include": [
+    "localModules",
     "src"
   ],
   "exclude": [

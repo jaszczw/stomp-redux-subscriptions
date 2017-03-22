@@ -7,7 +7,7 @@ const SUB_RECONNECT_TIMEOUT = 5000;
 import {
   SUBSCRIPTIONS_SUBSCRIBE,
   SUBSCRIPTIONS_UNSUBSCRIBE
-} from 'redux-subscriptions';
+} from '../../redux-subscriptions';
 
 export const createStartHandler =  (stopSubActions) => (createChannel) =>
   function *(action): any {

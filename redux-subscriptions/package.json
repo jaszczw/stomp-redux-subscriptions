@@ -1,0 +1,13 @@
+{
+  "name": "redux-subscriptions",
+  "typings" : "src/index.ts",
+  "main": "src/index.ts",
+  "version": "0.0.1",
+  "scripts": {
+    "postinstall": "tsc"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.55",
+    "lodash": "^4.17.4"
+  }
+}

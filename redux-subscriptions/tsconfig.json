@@ -1,4 +1,5 @@
 {
+  "main": "src/index.ts",
   "compilerOptions": {
     "module": "es6",
     "target": "es6",
@@ -7,9 +8,12 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "jsx": "preserve"
   },
+  "include": [
+    "src"
+  ],
   "exclude": [
     "node_modules"
   ]
