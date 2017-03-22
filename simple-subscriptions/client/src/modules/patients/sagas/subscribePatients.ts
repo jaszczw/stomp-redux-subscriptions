@@ -1,5 +1,5 @@
-import { takeLatest, take, call, race, fork, put, cancel} from 'redux-saga/effects';
-import { delay, eventChannel } from 'redux-saga';
+import { takeLatest } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
 import { actionsIDs } from '../constants'
 import { fetchPatients } from './fetchPatients';
 import { createStartHandler } from 'redux-saga-subscriptions';
@@ -16,6 +16,7 @@ const createChannel = (payload?) => eventChannel((emit) => {
 
 	return () => {clearInterval(interval)}; //Cleanup
 });
+
 
 export const watchPatientsSubscription = function *() {
 	const startHandler = createStartHandler([actionsIDs.STOP_SUBSCRIBE]);

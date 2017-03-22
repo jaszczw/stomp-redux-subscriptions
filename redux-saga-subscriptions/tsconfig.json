@@ -8,7 +8,11 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "outDir": "lib",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "es2016"
+    ]
   },
   "include": [
     "localModules",

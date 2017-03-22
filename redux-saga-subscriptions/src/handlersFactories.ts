@@ -7,9 +7,9 @@ const SUB_RECONNECT_TIMEOUT = 5000;
 import {
   SUBSCRIPTIONS_SUBSCRIBE,
   SUBSCRIPTIONS_UNSUBSCRIBE
-} from '../../redux-subscriptions';
+} from 'redux-subscriptions';
 
-export const createStartHandler =  (stopSubActions) => (createChannel) =>
+export const createStartHandler =  (stopSubActions: string[]) => (createChannel) =>
   function *(action): any {
     const channel = createChannel(action.payload);
     const stopPredicate = ({type}) =>
@@ -52,7 +52,7 @@ export const createSubscriptionHandler = (selector: (state: any, payload: any) =
 
 export const createErrorHandler = (startType, stopType, reconnectTimeout = SUB_RECONNECT_TIMEOUT) =>
   function *(action): any {
-    console.log(`'Will restart subscription in ${SUB_RECONNECT_TIMEOUT/1000} seconds`);
+    console.info(`'Will restart subscription in ${SUB_RECONNECT_TIMEOUT/1000} seconds`);
     yield put({type: stopType, payload: action.payload});
     yield call(delay, SUB_RECONNECT_TIMEOUT);
     yield put({payload: action.payload || null, type: startType});
