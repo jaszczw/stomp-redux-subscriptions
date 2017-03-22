@@ -7,8 +7,8 @@ import {
   getProcessesSubscriptions
 } from './reducer';
 
-import {subscriptionsService} from '../stomp-subscriptions/subscriptions';
-import { createSubscriptionWatcher } from '../redux-saga-subscriptions/subscriptionFactory';
+import {subscriptionsService} from '../stomp-subscriptions/lib/index';
+import { createSubscriptionWatcher } from '../redux-saga-subscriptions/lib/subscriptionFactory';
 
 import {
   actionsIDs

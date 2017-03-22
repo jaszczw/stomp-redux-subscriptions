@@ -3,7 +3,7 @@ import { takeEvery} from 'redux-saga/effects';
 import {
   createSubscriptionHandler,
   createStartHandler,
-  creatErrorHandler
+  createErrorHandler
 } from './handlersFactories';
 
 const parseOptions = (options: SubscriptionOptions) => ({
@@ -18,7 +18,7 @@ export const createSubscriptionWatcher = (options : SubscriptionOptions, createC
   const {subIdentifier, startType, stopType, errorType, selector} = parseOptions(options);
 
   const startSubscriptionHandler = createStartHandler([stopType, errorType])(createChannel);
-  const restartHandler = creatErrorHandler(startType, stopType);
+  const restartHandler = createErrorHandler(startType, stopType);
   const subscribeHandler = createSubscriptionHandler(selector, startType, stopType);
 
   yield takeEvery(startType, startSubscriptionHandler);

@@ -1,16 +1,16 @@
-import { takeEvery, select, race, takeLatest,  take, put, call, fork, cancel} from 'redux-saga/effects';
-import {delay, eventChannel} from 'redux-saga';
-import _isEqual from 'lodash/isEqual'
+import { select, race, take, put, call} from 'redux-saga/effects';
+import {delay} from 'redux-saga';
+import _isEqual from 'lodash/isEqual';
 
 const SUB_RECONNECT_TIMEOUT = 5000;
 
 import {
   SUBSCRIPTIONS_SUBSCRIBE,
   SUBSCRIPTIONS_UNSUBSCRIBE
-} from 'redux-subscriptions/constants';
+} from 'redux-subscriptions';
 
 export const createStartHandler =  (stopSubActions) => (createChannel) =>
-  function* (action) {
+  function *(action): any {
     const channel = createChannel(action.payload);
     const stopPredicate = ({type}) =>
       stopSubActions.includes(type);
@@ -36,8 +36,8 @@ export const createStartHandler =  (stopSubActions) => (createChannel) =>
     }
   }
 
-export const createSubscriptionHandler = (selector, startType, stopType) =>
-  function* subscriber(action) {
+export const createSubscriptionHandler = (selector: (state: any, payload: any) => any, startType, stopType) =>
+  function *(action): any {
     const subscriptionsState = yield select(selector, action.payload);
     const subCount = subscriptionsState.length;
 
@@ -48,12 +48,12 @@ export const createSubscriptionHandler = (selector, startType, stopType) =>
     if (subCount === 0 && action.method === SUBSCRIPTIONS_UNSUBSCRIBE) {
       yield put({type: stopType, payload: action.payload});
     }
-  }
+  };
 
-export const creatErrorHandler = (startType, stopType, reconnectTimeout = SUB_RECONNECT_TIMEOUT) =>
-  function * (action) {
+export const createErrorHandler = (startType, stopType, reconnectTimeout = SUB_RECONNECT_TIMEOUT) =>
+  function *(action): any {
     console.log(`'Will restart subscription in ${SUB_RECONNECT_TIMEOUT/1000} seconds`);
     yield put({type: stopType, payload: action.payload});
     yield call(delay, SUB_RECONNECT_TIMEOUT);
     yield put({payload: action.payload || null, type: startType});
-  }
+  } ;

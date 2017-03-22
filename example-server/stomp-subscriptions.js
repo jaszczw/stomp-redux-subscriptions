@@ -1,4 +1,3 @@
-// import SockJS from 'sockjs-client';
 const WebSocket = require('ws');
 const stomp = require('webstomp-client');
 const uuid = require('uuid/v1');
@@ -10,7 +9,6 @@ let wsclient = stomp.over(client, {
     heartbeat: {incoming: 5000, outgoing: 5000},
 });
 
-//TODO WJ: reconnect on failure - handle (or not)
 const stompClient = new Promise((resolve, reject) => wsclient.connect({
     login: 'guest',
     passcode: 'guest',

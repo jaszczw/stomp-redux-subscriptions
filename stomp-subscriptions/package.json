@@ -1,0 +1,37 @@
+{
+  "name": "stomp-subscriptions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "cross-env BABEL_ENV=es webpack src --out-dir es",
+    "postinstall": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaszczw/stomp-redux-subscriptions/issues"
+  },
+  "homepage": "https://github.com/jaszczw/stomp-redux-subscriptions#readme",
+  "dependencies": {
+    "uuid": "^3.0.1",
+    "webstomp-client": "^1.0.6"
+  },
+  "devDependencies": {
+    "babel": "^6.0.0",
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.1.0",
+    "babel-preset-es2016": "^6.16.0",
+    "cross-env": "^3.2.4",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.4",
+    "webpack": "^2.2.0"
+  }
+}

@@ -1,4 +1,3 @@
-// import SockJS from 'sockjs-client';
 import {client, Client} from 'webstomp-client';
 import {getHandler} from './handlersManager';
 
