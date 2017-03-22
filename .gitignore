@@ -1,0 +1,5 @@
+node_modules
+.idea
+.awscache
+/simple-subscriptions/client/.awcache
+build
