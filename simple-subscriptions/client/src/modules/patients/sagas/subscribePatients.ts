@@ -3,18 +3,21 @@ import { eventChannel } from 'redux-saga';
 import { actionsIDs } from '../constants'
 import { fetchPatients } from './fetchPatients';
 import { createStartHandler } from 'redux-saga-subscriptions';
+import qSocket from '../../../socketIo/socket';
 
-export const POOLING_TIMEOUT_MS = 5000; //in ms
+const getFetchEmit = (emit) => () => Promise.resolve(fetchPatients()).then(emit);
 
 const createChannel = (payload?) => eventChannel((emit) => {
-  Promise.resolve(fetchPatients()).then(emit);
+  const fetch = getFetchEmit(emit);
 
-  const interval = setInterval(() =>
-      Promise.resolve(fetchPatients()).then(emit),
-    POOLING_TIMEOUT_MS
-  );
+  qSocket.then((socket) => {
+    fetch();
+    socket.on('patients-modified', fetch)
+  });
 
-  return () => {clearInterval(interval)}; //Cleanup
+  return () => {qSocket.then((socket) => {
+    socket.off('patients-modified')
+  })};
 });
 
 

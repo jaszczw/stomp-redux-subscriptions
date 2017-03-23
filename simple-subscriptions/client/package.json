@@ -49,6 +49,7 @@
     "redux-saga": "^0.14.3",
     "redux-saga-subscriptions": "0.0.1",
     "redux-thunk": "^2.2.0",
-    "reselect": "^2.5.4"
+    "reselect": "^2.5.4",
+    "socket.io-client": "^1.7.3"
   }
 }
