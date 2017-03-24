@@ -1,8 +1,8 @@
-const handlersHash = {}
+const handlersHash = {};
 
 const addHandler = (subscription, handler) => {
   handlersHash[subscription] = handler;
-}
+};
 
 const getHandler = (subscription)  =>
   handlersHash[subscription];
