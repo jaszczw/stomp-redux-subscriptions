@@ -5,7 +5,8 @@ export interface PatientsDomainModel {
   bodyTemperature : number;
   hearthRate : number;
   hiBloodPressure : number;
-  loBloodPressure : number;  
+  loBloodPressure : number;
+  floor : number;
 }
 
 export default PatientsDomainModel;

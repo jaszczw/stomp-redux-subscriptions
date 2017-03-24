@@ -4,4 +4,4 @@ import { PatientsStateModel } from './models'
 
 export const mapPatientToStateModel = (patient : PatientsDomainModel) : PatientsStateModel => ({
   ...patient,  
-})
+});

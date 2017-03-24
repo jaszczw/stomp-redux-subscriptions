@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { PatientsViewModel } from './viewModels';
 import {PatientsTableComponent} from './patientsTableComponent'
 import { ReduxState } from '../../store'
-import { getAllPatientsViewModels } from './selectors'
+import { getPatientsOnFloorViewModels } from './selectors'
 
 const mapDispatchToProps = {
 };
 
-const mapStateToProps = (state : ReduxState) => {
+const mapStateToProps = (state : ReduxState, ownProps) => {
   return {
-    patients : getAllPatientsViewModels(state)
+    patients : getPatientsOnFloorViewModels(state, ownProps)
   }  
 }
 

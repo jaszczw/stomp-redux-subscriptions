@@ -14,7 +14,8 @@ module.exports = (app) => {
                 "bodyTemperature": {"type": "Edm.Decimal"},
                 "hearthRate": {"type": "Edm.Decimal"},
                 "hiBloodPressure": {"type": "Edm.Decimal"},
-                "loBloodPressure": {"type": "Edm.Decimal"},                                
+                "loBloodPressure": {"type": "Edm.Decimal"},
+                "floor": {"type": "Edm.Decimal"},
             },
         },
         entitySets: {

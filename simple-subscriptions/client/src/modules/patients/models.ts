@@ -5,13 +5,14 @@ export interface PatientsStateModel {
   bodyTemperature : number;
   hearthRate : number;
   hiBloodPressure : number;
-  loBloodPressure : number;  
+  loBloodPressure : number;
+  floor: number;
 }
-
 
 export interface FetchedPatientsAction {
   payload: {
     patients: PatientsStateModel[];
+    queryObject: any;
   };
   type: string;
 }

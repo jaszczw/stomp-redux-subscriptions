@@ -6,9 +6,16 @@ const processesEndPoint = () => o(`http://localhost:1337/patients`);
 
 
 export function getPatients(payload) : Promise<PatientsDomainModel[]> {
+  if(payload){
+    return processesEndPoint()
+      .filter(`floor eq ${payload.floor}`)
+      .get()
+      .then((result) => result.data);
+  }
+
   return processesEndPoint()
     .get()
-    .then((result) => result.data); //Probably here I would stop
+    .then((result) => result.data);
 }
 
 

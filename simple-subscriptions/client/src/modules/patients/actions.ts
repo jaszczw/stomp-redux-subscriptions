@@ -4,8 +4,9 @@ import {SUBSCRIPTIONS_SUBSCRIBE, SUBSCRIPTIONS_UNSUBSCRIBE} from 'redux-subscrip
 
 export const fetchedPatients = (patients: PatientsStateModel[], queryObject?): FetchedPatientsAction => ({
   type: actionsIDs.FETCHED_PATIENTS,
-  payload: {patients},
+  payload: {patients, queryObject},
 });
+
 
 export const subscribePatients = (payload) => ({
   type: actionsIDs.SUBSCRIPTIONS,
