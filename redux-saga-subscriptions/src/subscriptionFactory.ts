@@ -10,6 +10,7 @@ const parseOptions = (options: SubscriptionOptions) => ({
   ...options,
   startType: options.startType || `${options.subIdentifier}/START`,
   stopType: options.stopType || `${options.subIdentifier}/STOP`,
+  errorType: options.errorType || ''
 });
 
 export const createSubscriptionWatcher = (options : SubscriptionOptions, createChannel) => function *() {
@@ -22,14 +23,17 @@ export const createSubscriptionWatcher = (options : SubscriptionOptions, createC
   const subscribeHandler = createSubscriptionHandler(selector, startType, stopType);
 
   yield takeEvery(startType, startSubscriptionHandler);
-  yield takeEvery(errorType, restartHandler);
   yield takeEvery(subIdentifier, subscribeHandler);
+
+  if (errorType) {
+    yield takeEvery(errorType, restartHandler);
+  }
 };
 
 interface SubscriptionOptions {
   subIdentifier: string;
   startType?: string;
   stopType?: string;
-  errorType: string;
-  selector: (state, payload) => any[]
+  errorType?: string;
+  selector: ((state, payload) => any[]) | ((state) => any[])
 }
