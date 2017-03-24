@@ -58,10 +58,17 @@ export const createSubscriptionHandler = (selector: (state: any, payload: any) =
     }
   };
 
+
 export const createErrorHandler = (startType, stopType, reconnectTimeout = SUB_RECONNECT_TIMEOUT) =>
   function *(action): any {
     console.info(`'Will restart subscription in ${SUB_RECONNECT_TIMEOUT/1000} seconds`);
     yield put({type: stopType, payload: action.payload});
-    yield call(delay, SUB_RECONNECT_TIMEOUT);
-    yield put({payload: action.payload || null, type: startType});
+    const {retry} = yield race({
+      retry: call(delay, SUB_RECONNECT_TIMEOUT),
+      stop: take(stopType)
+    });
+
+    if (retry) {
+      yield put({payload: action.payload || null, type: startType});
+    }
   } ;
