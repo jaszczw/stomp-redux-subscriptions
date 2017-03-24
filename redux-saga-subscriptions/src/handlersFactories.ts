@@ -1,4 +1,4 @@
-import { select, race, take, put, call} from 'redux-saga/effects';
+import { select, cancel, fork, race, take, put, call} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import _isEqual from 'lodash/isEqual';
 
@@ -9,22 +9,30 @@ import {
   SUBSCRIPTIONS_UNSUBSCRIBE
 } from 'redux-subscriptions';
 
+function * channelHandling (createChannel, action) {
+  const channel = yield call(createChannel, action.payload);
+
+  try {
+    while (true) {
+      const result = yield take(channel);
+      yield result;
+    }
+  } finally {
+    channel.close();
+  }
+}
+
 export const createStartHandler =  (stopSubActions: string[]) => (createChannel) =>
   function *(action): any {
-    const channel = createChannel(action.payload);
-    const stopPredicate = ({type}) =>
-      stopSubActions.includes(type);
+    const task = yield fork(channelHandling, createChannel, action);
+
+    const stopPredicate = ({type}) => {
+      return stopSubActions.includes(type);
+    };
 
     try {
       while (true) {
-        const {stopSub, result} = yield race({
-          result: take(channel),
-          stopSub: take(stopPredicate)
-        });
-
-        if (result) {
-          yield result;
-        }
+        const stopSub = yield take(stopPredicate);
 
         if (stopSub && _isEqual(stopSub.payload, action.payload)) {
           return;
@@ -32,7 +40,7 @@ export const createStartHandler =  (stopSubActions: string[]) => (createChannel)
       }
     }
     finally {
-      channel.close();
+      yield cancel(task);
     }
   }
 
