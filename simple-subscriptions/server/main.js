@@ -19,9 +19,9 @@ server.listen(port, function () {
 const sockets = connectSocket(io);
 
 //Notify on crud actions
-app.use("/processes*", function (req, res, next) {
+app.use("/patients*", function (req, res, next) {
     const crudMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];
-    if(crudMethods.includes(req.method)) {
+    if (crudMethods.includes(req.method)) {
         sockets.notifyClients('patients-modified');
     }
     next();
