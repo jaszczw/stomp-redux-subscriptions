@@ -2,12 +2,13 @@ import {connect} from 'react-redux';
 import SubscriptionManager from '../../common/SubscriptionManager';
 import { subscribePatients, unsubscribePatients  } from '../../modules/patients/actions';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps: any) => ({
+   payload: {floor: ownProps.floor}
 });
 
 const mapDispatchToProps = (dispatch) => ({
-   subscribe: () => dispatch(subscribePatients()),
-   unsubscribe: () => dispatch(unsubscribePatients()),
+   subscribe: (payload) => dispatch(subscribePatients(payload)),
+   unsubscribe: (payload) => dispatch(unsubscribePatients(payload)),
 });
 
 export const ProvidePatients = connect(mapStateToProps, mapDispatchToProps)(SubscriptionManager);

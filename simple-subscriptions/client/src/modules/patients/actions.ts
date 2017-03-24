@@ -1,19 +1,21 @@
 import { actionsIDs } from './constants';
-import { PatientsDomainModel } from './services/patientsDomainModel'
 import { PatientsStateModel, FetchedPatientsAction } from './models'
-import { mapPatientToStateModel } from './mappers'
-import { getPatients } from './services/patientsService';
+import {SUBSCRIPTIONS_SUBSCRIBE, SUBSCRIPTIONS_UNSUBSCRIBE} from 'redux-subscriptions';
 
 export const fetchedPatients = (patients: PatientsStateModel[], queryObject?): FetchedPatientsAction => ({
   type: actionsIDs.FETCHED_PATIENTS,
   payload: {patients},
 });
 
-export const subscribePatients = () => ({
-  type: actionsIDs.START_SUBSCRIBE,  
+export const subscribePatients = (payload) => ({
+  type: actionsIDs.SUBSCRIPTIONS,
+  method: SUBSCRIPTIONS_SUBSCRIBE,
+  payload
 });
 
-export const unsubscribePatients = () => ({
-  type: actionsIDs.STOP_SUBSCRIBE,  
+export const unsubscribePatients = (payload) => ({
+  type: actionsIDs.SUBSCRIPTIONS,
+  method: SUBSCRIPTIONS_UNSUBSCRIBE,
+  payload
 });
 

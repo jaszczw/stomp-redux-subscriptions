@@ -5,7 +5,7 @@ import {PatientsDomainModel} from './patientsDomainModel'
 const processesEndPoint = () => o(`http://localhost:1337/patients`);
 
 
-export function getPatients() : Promise<PatientsDomainModel[]> {
+export function getPatients(payload) : Promise<PatientsDomainModel[]> {
   return processesEndPoint()
     .get()
     .then((result) => result.data); //Probably here I would stop
