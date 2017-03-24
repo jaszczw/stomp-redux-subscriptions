@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import { actionsIDs } from '../constants'
 import { fetchPatients } from './fetchPatients';
@@ -14,6 +14,8 @@ const createChannel = (payload?) => eventChannel((emit) => {
   fetch();
 
   socket.on(msgChannel, fetch);
+  socket.on('disconnect', () => emit(put({type: 'failing-socket'})));
+  socket.on('connect', () => emit(put({type: 'socket-alive'})));
 
   return () => {
     socket.off(msgChannel);
