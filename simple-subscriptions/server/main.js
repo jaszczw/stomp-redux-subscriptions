@@ -22,10 +22,10 @@ const sockets = connectSocket(io);
 app.use("/patients*", function (req, res, next) {
     const crudMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];
     if (crudMethods.includes(req.method)) {
-        sockets.notifyClients('patients-modified');
+        sockets.notifyRoom('patients', 'patients-modified');
     }
     next();
 });
 
-simulateHeartRates(() => sockets.notifyClients('patients-modified'));
+simulateHeartRates(() => sockets.notifyRoom('patients', 'patients-modified'));
 attachOdata(app);
