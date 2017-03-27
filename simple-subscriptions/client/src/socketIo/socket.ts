@@ -5,11 +5,15 @@ var socket = io('http://localhost:1337/');
 export default socket;
 
 export const createServiceHeartbeat = (service, emitAlive, emitFail) => {
-  let nextHeartBeat;
-  const createNextHeartBeat = () => setTimeout(serviceHeartbeat, 5000);
+  let nextHeartBeat, failTimeout;
+  const createNextHeartBeat = () => {
+    clearTimeout(nextHeartBeat);
+    return setTimeout(serviceHeartbeat, 5000);
+  };
 
   const serviceHeartbeat = () => {
-    let failTimeout = setTimeout(() => {
+    failTimeout && clearTimeout(failTimeout);
+    failTimeout = setTimeout(() => {
       emitFail();
       nextHeartBeat = createNextHeartBeat();
     }, 5000);
@@ -26,7 +30,8 @@ export const createServiceHeartbeat = (service, emitAlive, emitFail) => {
 
   return {
     clear : () => {
-      clearTimeout(nextHeartBeat);
+      nextHeartBeat && clearTimeout(nextHeartBeat);
+      failTimeout && clearTimeout(failTimeout);
     }
   }
 };
