@@ -42,7 +42,7 @@ export const createStartHandler =  (stopSubActions: string[]) => (createChannel)
     finally {
       yield cancel(task);
     }
-  }
+  };
 
 export const createSubscriptionHandler = (selector: (state: any, payload: any) => any, startType, stopType) =>
   function *(action): any {
@@ -71,4 +71,4 @@ export const createErrorHandler = (startType, stopType, reconnectTimeout = SUB_R
     if (retry) {
       yield put({payload: action.payload || null, type: startType});
     }
-  } ;
+  };
