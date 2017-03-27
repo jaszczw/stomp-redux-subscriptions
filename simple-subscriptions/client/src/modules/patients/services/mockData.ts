@@ -10,7 +10,8 @@ export const patientsMockData : PatientsDomainModel[] =
       bodyTemperature: 38.5, 
       hearthRate: 120, 
       hiBloodPressure: 15,
-      loBloodPressure: 10
+      loBloodPressure: 10,
+      floor: 1
     },  
     {
       _id: "2",   
@@ -19,7 +20,8 @@ export const patientsMockData : PatientsDomainModel[] =
       bodyTemperature: 36.8, 
       hearthRate: 90, 
       hiBloodPressure: 12,
-      loBloodPressure: 8
+      loBloodPressure: 8,
+      floor: 1
     },
     {
       _id: "3",   
@@ -28,6 +30,7 @@ export const patientsMockData : PatientsDomainModel[] =
       bodyTemperature: 37.0, 
       hearthRate: 95, 
       hiBloodPressure: 13,
-      loBloodPressure: 9
+      loBloodPressure: 9,
+      floor: 2
     },    
 ];

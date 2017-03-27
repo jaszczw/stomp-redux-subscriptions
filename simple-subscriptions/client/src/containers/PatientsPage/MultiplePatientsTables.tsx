@@ -25,19 +25,19 @@ export default class MulitplePatientsTables extends React.Component<any, any> {
       <div>
         {floors.map((floor) => (
           <div key={floor}>
-            <p>{floor}</p>
             <button onClick={this.removeFloor(floor)}>-</button>
+            <p>Fetches for floor: {floor} and displays it</p>
             <ProvidePatients floor={floor}>
-              <PatientsTableContainer/>
+              <PatientsTableContainer floor={floor}/>
             </ProvidePatients>
           </div>
         ))}
         {floors2.map((floor) => (
           <div key={`${floor-2}`}>
-            <p>{floor}</p>
             <button onClick={this.removeFloor2(floor)}>-</button>
+            <p>Fetches for floor: {floor} displays all</p>
             <ProvidePatients floor={floor}>
-              <PatientsTableContainer/>
+                <PatientsTableContainer/>
             </ProvidePatients>
           </div>
         ))}

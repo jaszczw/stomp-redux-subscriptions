@@ -5,5 +5,6 @@ export interface PatientsViewModel {
   bodyTemperature : number;
   hearthRate : number;
   hiBloodPressure : number;
-  loBloodPressure : number;  
+  loBloodPressure : number;
+  floor: number;
 }

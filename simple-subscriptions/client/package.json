@@ -39,7 +39,6 @@
     "webpack-dev-middleware": "~1.9.0"
   },
   "dependencies": {
-    "@types/reselect": "^2.0.27",
     "lodash": "^4.17.4",
     "odata": "^0.3.0",
     "react": "^15.4.2",
@@ -50,7 +49,7 @@
     "redux-saga-subscriptions": "0.0.1",
     "redux-subscriptions": "0.0.1",
     "redux-thunk": "^2.2.0",
-    "reselect": "^2.5.4",
+    "reselect": "^3.0.0",
     "socket.io-client": "^1.7.3"
   }
 }

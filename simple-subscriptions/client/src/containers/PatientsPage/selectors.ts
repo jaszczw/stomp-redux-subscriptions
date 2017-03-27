@@ -13,14 +13,17 @@ const getViewModelFields = (patient : PatientsStateModel) => ({
 const mapPatientToViewModel = (patient : PatientsStateModel) : PatientsViewModel => ({
   ...omitDomainOnlyFields(patient),
   ...getViewModelFields(patient),  
-})
-
+});
 
 export const getAllPatientsViewModels = createSelector(
-  getAllPatients,  
-  (patients) : PatientsViewModel[] => {      
-      return patients.map(mapPatientToViewModel);
-    } 
+  getAllPatients,
+  (patients) : PatientsViewModel[] => patients.map(mapPatientToViewModel)
   );
 
+export const getPatientsOnFloorViewModels = createSelector(
+  getAllPatientsViewModels,
+  (state, props: {floor?}) => props.floor,
+  (patientsVMs, floor) : PatientsViewModel[] =>
+    patientsVMs.filter((p) => floor ? p.floor === floor : true)
+);
 
