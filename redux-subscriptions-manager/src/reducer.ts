@@ -38,6 +38,4 @@ export const createReducer = (SUBSCRIPTION_TYPE) => (state = [], action) => {
 };
 
 export const getSubscriptions = (state, payload)=>
-  state.filter((subscribedPayloads) => _isEqual(payload, subscribedPayloads))
-
-
+  state.filter((subscribedPayloads) => _isEqual(payload, subscribedPayloads));

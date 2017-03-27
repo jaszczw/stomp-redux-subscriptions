@@ -4,7 +4,7 @@ import { actionsIDs } from '../constants'
 import { fetchPatients } from './fetchPatients';
 import { createSubscriptionWatcher } from 'redux-saga-subscriptions';
 import socket, {createServiceHeartbeat} from '../../../socketIo/socket';
-import {getPatientsSubscriptions} from '../../../store/reducer';
+import {getFilteredPatientsSubscriptions} from '../selectors';
 
 const msgChannel = 'patients-modified';
 const getFetchEmit = (emit, payload) => () => Promise.resolve(fetchPatients(payload)).then(emit);
@@ -37,6 +37,6 @@ const createChannel = (payload?) => eventChannel((emit) => {
 });
 
 export const watchPatientsSubscription = createSubscriptionWatcher({
-    subIdentifier: actionsIDs.SUBSCRIPTIONS,
-    selector: getPatientsSubscriptions
+    subIdentifier: actionsIDs.PATIENTS_SUBSCRIPTIONS,
+    selector: getFilteredPatientsSubscriptions
   }, createChannel);

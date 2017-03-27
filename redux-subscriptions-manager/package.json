@@ -1,10 +1,10 @@
 {
-  "name": "redux-subscriptions",
+  "name": "redux-subscriptions-manager",
   "typings" : "src/index.ts",
   "main": "src/index.ts",
   "version": "0.0.1",
   "scripts": {
-    "postinstall": "tsc"
+    "prepublish": "tsc"
   },
   "dependencies": {
     "@types/lodash": "^4.14.55",
