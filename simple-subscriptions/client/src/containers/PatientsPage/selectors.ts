@@ -16,17 +16,14 @@ const mapPatientToViewModel = (patient : PatientsStateModel) : PatientsViewModel
 });
 
 export const getAllPatientsViewModels = createSelector(
-  getAllPatients,  
-  (patients) : PatientsViewModel[] => {      
-      return patients.map(mapPatientToViewModel);
-    } 
+  getAllPatients,
+  (patients) : PatientsViewModel[] => patients.map(mapPatientToViewModel)
   );
 
 export const getPatientsOnFloorViewModels = createSelector(
   getAllPatientsViewModels,
-  (state, props) => props.floor,
-  (patientsVMs, floor) : PatientsViewModel[] => {
-    return patientsVMs.filter((p) => floor ? p.floor === floor : true);
-  }
+  (state, props: {floor?}) => props.floor,
+  (patientsVMs, floor) : PatientsViewModel[] =>
+    patientsVMs.filter((p) => floor ? p.floor === floor : true)
 );
 

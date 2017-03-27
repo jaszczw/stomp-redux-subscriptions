@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import SubscriptionManager from '../../common/SubscriptionManager';
 import { subscribePatients, unsubscribePatients  } from '../../modules/patients/actions';
 
-const mapStateToProps = (state, ownProps: any) => ({
+const mapStateToProps = (state, ownProps: ProvidePatientsProps) => ({
    payload: {floor: ownProps.floor}
 });
 
@@ -17,5 +17,5 @@ export default ProvidePatients;
 
 // Additionally we could define custom props for the provider
 export interface ProvidePatientsProps {
-
+   floor: number;
 }
