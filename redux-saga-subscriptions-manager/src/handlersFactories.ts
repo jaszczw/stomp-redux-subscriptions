@@ -42,33 +42,42 @@ export const createStartHandler =  (stopSubActions: string[]) => (createChannel)
     finally {
       yield cancel(task);
     }
-  }
+  };
 
-export const createSubscriptionHandler = (selector: (state: any, payload: any) => any, startType, stopType) =>
-  function *(action): any {
-    const subscriptionsState = yield select(selector, action.payload);
+//Opinionated about subscription storing, selector - selector must return an array
+export const createSubscriptionHandler = (selector: SubscriptionsSelector, startType: string, stopType: string) =>
+  function *({payload, method}): any {
+    const subscriptionsState = yield select(selector, payload);
     const subCount = subscriptionsState.length;
 
-    if (subCount === 1 && action.method === SUBSCRIPTIONS_SUBSCRIBE) {
-      yield put({type: startType, payload: action.payload});
+    let firstSub = subCount === 1 && method === SUBSCRIPTIONS_SUBSCRIBE;
+    let lastUnSub = subCount === 0 && method === SUBSCRIPTIONS_UNSUBSCRIBE;
+
+    if (firstSub) {
+      yield put({type: startType, payload});
     }
 
-    if (subCount === 0 && action.method === SUBSCRIPTIONS_UNSUBSCRIBE) {
-      yield put({type: stopType, payload: action.payload});
+    if (lastUnSub) {
+      yield put({type: stopType, payload});
     }
   };
 
-
 export const createErrorHandler = (startType, stopType, reconnectTimeout = SUB_RECONNECT_TIMEOUT) =>
-  function *(action): any {
+  function *({payload}): any {
     console.info(`'Will restart subscription in ${SUB_RECONNECT_TIMEOUT/1000} seconds`);
-    yield put({type: stopType, payload: action.payload});
+
+    //Stop current sub
+    yield put({type: stopType, payload});
+
+    //Race between state induced STOP - meaning we no longer subscribe and reconnect timeout
     const {retry} = yield race({
       retry: call(delay, SUB_RECONNECT_TIMEOUT),
       stop: take(stopType)
     });
 
     if (retry) {
-      yield put({payload: action.payload || null, type: startType});
+      yield put({payload, type: startType});
     }
-  } ;
+  };
+
+type SubscriptionsSelector = (state: any, payload: any) => any[];

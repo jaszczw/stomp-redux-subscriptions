@@ -2,9 +2,9 @@ import { createSelector } from 'reselect';
 import { getAllPatients } from '../../modules/patients/selectors';
 import { PatientsStateModel } from '../../modules/patients/models';
 import { PatientsViewModel } from './viewModels'
-import _ from 'lodash/fp';
+import _omit from 'lodash/fp/omit';
 
-const omitDomainOnlyFields = _.omit('_id');
+const omitDomainOnlyFields = _omit('_id');
 
 const getViewModelFields = (patient : PatientsStateModel) => ({
   id: patient._id

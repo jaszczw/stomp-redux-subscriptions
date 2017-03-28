@@ -16,7 +16,7 @@ const parseOptions = (options: SubscriptionOptions) => ({
 export const createSubscriptionWatcher = (options : SubscriptionOptions, createChannel) => function *() {
   if (!options.subIdentifier) throw new Error('OursubIdentifier is required');
 
-  const {subIdentifier, startType, stopType, errorType, selector} = parseOptions(options);
+  const { subIdentifier, startType, stopType, errorType, selector } = parseOptions(options);
 
   const startSubscriptionHandler = createStartHandler([stopType, errorType])(createChannel);
   const restartHandler = createErrorHandler(startType, stopType);
@@ -32,8 +32,8 @@ export const createSubscriptionWatcher = (options : SubscriptionOptions, createC
 
 interface SubscriptionOptions {
   subIdentifier: string;
+  selector: ((state, payload) => any[]) | ((state) => any[]);
   startType?: string;
   stopType?: string;
   errorType?: string;
-  selector: ((state, payload) => any[]) | ((state) => any[])
 }

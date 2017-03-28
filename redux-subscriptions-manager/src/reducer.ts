@@ -1,41 +1,36 @@
 import findIndex from 'lodash/findIndex';
-import _isEqual from 'lodash/isEqual';
+import _isEqual from 'lodash/fp/isEqual';
 
 import {SUBSCRIPTIONS_SUBSCRIBE} from './constants';
 
-const getUnsubscriptionResult = (currentSubscriptionState = [], payload) => {
-  const index = findIndex(
+let getIndexOfSubscription = (currentSubscriptionState, payload) =>
+  findIndex(
     currentSubscriptionState,
-    (subPayload) => _isEqual(payload, subPayload)
+    _isEqual(payload)
   );
 
+const getStateAfterUnsub = (state, payload) => {
+  const index = getIndexOfSubscription(state, payload);
+
   return [
-    ...currentSubscriptionState.slice(0, index),
-    ...currentSubscriptionState.slice(index + 1),
+    ...state.slice(0, index),
+    ...state.slice(index + 1),
   ];
 };
 
-const getSubscriptionResult = (currentSubscriptionState = [], payload) => {
-  return currentSubscriptionState.concat(payload);
+const getStateAfterSub = (state, payload) => {
+  return state.concat(payload);
 };
 
-export const createReducer = (SUBSCRIPTION_TYPE) => (state = [], action) => {
-  if (action.type !== SUBSCRIPTION_TYPE) {
-    return state;
-  }
+const handleSubscriptions = (state, {payload, method}) =>
+  method === SUBSCRIPTIONS_SUBSCRIBE ?
+    getStateAfterSub(state, payload) :
+    getStateAfterUnsub(state, payload);
 
-  let newState;
+export const createReducer = (SUBSCRIPTION_TYPE) => (state = [], action) =>
+  action.type === SUBSCRIPTION_TYPE ?
+  handleSubscriptions(state, action) :
+  state;
 
-  const payload = action.payload;
-
-  if (action.method === SUBSCRIPTIONS_SUBSCRIBE) {
-    newState = getSubscriptionResult(state, payload);
-  } else {
-    newState = getUnsubscriptionResult(state, payload);
-  }
-
-  return newState || [];
-};
-
-export const getSubscriptions = (state, payload)=>
+export const getSubscriptions = <T, S extends Array<T>>(state: S, payload: T) =>
   state.filter((subscribedPayloads) => _isEqual(payload, subscribedPayloads));

@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import { actionsIDs } from '../constants'
 import { fetchPatients } from './fetchPatients';
-import { createSubscriptionWatcher } from 'redux-saga-subscriptions';
+import { createSubscriptionWatcher } from 'redux-saga-subscriptions-manager';
 import socket, {createServiceHeartbeat} from '../../../socketIo/socket';
 import {getFilteredPatientsSubscriptions} from '../selectors';
 
