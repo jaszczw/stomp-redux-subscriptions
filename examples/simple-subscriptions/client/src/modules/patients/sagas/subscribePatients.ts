@@ -21,7 +21,6 @@ const createChannel = (payload?) => eventChannel((emit) => {
   fetch();
 
   socket.emit('subscribe','patients', payload, (subscriptionResult) => {
-
     socket.on(msgChannel, fetch);
     heartBeat = createServiceHeartbeat('patients', emitServiceAlive(emit), emitServiceFailing(emit));
   });

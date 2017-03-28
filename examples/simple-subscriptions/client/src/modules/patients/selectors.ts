@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import _isEqual from 'lodash/isEqual';
+import { getSubscriptions } from 'redux-subscriptions-manager';
 import { PatientsStateModel } from './models';
 import { selectors } from './reducers/byIds'
 import { getPatientsState } from '../../store/selectors'
@@ -22,13 +22,12 @@ const getPatientsSubscriptionsState = createSelector(
 export const getAllPatients = createSelector(  
   getPatientsByIds,
   getPatientsByAllIds,
-    (byIds, allIds) : PatientsStateModel[] => {
-      return  allIds.map((id) => selectors.getPatient(byIds, id));      
-    } 
-  );
+  (byIds, allIds): PatientsStateModel[] =>
+    allIds.map((id) => selectors.getPatient(byIds, id))
+);
 
 export const getFilteredPatientsSubscriptions = createSelector(
   getPatientsSubscriptionsState,
-  (state, filter) => filter,
-  (patientsList, filter) =>  patientsList.filter((p) => _isEqual(filter, p))
+  (state, payload) => payload,
+  getSubscriptions
 );
