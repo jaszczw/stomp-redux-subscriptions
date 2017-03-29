@@ -4,3 +4,5 @@ node_modules
 /simple-subscriptions/client/.awcache
 build
 lib
+*.awscache
+/examples/simple-subscriptions/client/.awcache
