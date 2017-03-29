@@ -20,7 +20,7 @@ const createChannel = (payload?) => eventChannel((emit) => {
   let channel = null, heartBeat;
   fetch();
 
-  socket.emit('subscribe','patients', payload, (subscriptionResult) => {
+  socket.emit('subscribe','patients', payload, () => {
     socket.on(msgChannel, fetch);
     heartBeat = createServiceHeartbeat('patients', emitServiceAlive(emit), emitServiceFailing(emit));
   });

@@ -3,6 +3,10 @@
   "typings" : "src/index.ts",
   "main": "src/index.ts",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
+  },
   "scripts": {
     "prepublish": "tsc"
   },

@@ -2,6 +2,10 @@
   "name": "redux-saga-subscriptions-manager",
   "typings" : "src/index.ts",
   "main": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
+  },
   "version": "0.0.1",
   "scripts": {
     "prepublish": "tsc"
