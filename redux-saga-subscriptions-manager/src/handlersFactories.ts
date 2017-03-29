@@ -22,7 +22,7 @@ function * channelHandling (createChannel, action) {
   }
 }
 
-export const createStartHandler =  (stopSubActions: string[]) => (createChannel) =>
+export const createStartHandler = (stopSubActions: string[]) => (createChannel) =>
   function *(action): any {
     const task = yield fork(channelHandling, createChannel, action);
 

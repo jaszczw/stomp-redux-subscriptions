@@ -1,142 +1,93 @@
-# Example usages
+# API
 
-There are three libraries in this repository.
+High-level description of API.
 
-- stomp-subscriptions
-- redux-subscriptions
-- redux-saga-subscriptions
-
-They can be used separately to achieve 'reactive' application that is aware of changes on backend, without per case pooling/fetches.
-
-It resolves problem that is as follow:
-
-You have table of "Patients" let's say on the '8th' floor. 
-So you want to see their heart-rates in real-time went you open given patient, you also want his data to be up to date.
-Maybe there is more things to track then just heart-rate.
-
-So normally you would do something like:
-
-```javascript
-class PatientsList extends React.Component {
-    componentDidMount() {
-      socket.on('patients', () => {
-          //update.state/fetchData etc.
-      });
-    }
-    
-    componentWillUnmount() {
-        socket.off('patients')
-    }
-    
-    //...
+```typescript
+  exports {
+      createSubscriptionWatcher: (options : SubscriptionOptions, createChannel) => handler;
+      createStartHandler: (stopSubActions: string[]) => (createChannel: any) => handler
+      createSubscriptionHandler: (selector: (state: any, payload: any) => handler
+      createErrorHandler: (startType: any, stopType: any, reconnectTimeout?: number) => handler
+  }
+      
+interface SubscriptionOptions {
+  subIdentifier: string;
+  selector: ((state, payload) => any[]) | ((state) => any[]);
+  startType?: string;
+  stopType?: string;
+  errorType?: string;
 }
+
+interface handler extends GeneratorFunction;
 ```
 
-But then if you had more components dependent on same data you would have to extract it to higher level component
- or just a top level component.
- 
- ```javascript
-class PatientsDataProvider extends React.Component {
-    componentDidMount() {
-     socket.on('patients', () => {
-         //update.state
-     });
-    }
-    
-    componentWillUnmount() {
-       socket.off('patients')
-    }
+## Use cases:
 
-    //...
-}
-```
+Library works best together with `redux-subscriptions-manager` - reduced state, but can be used without it.
 
-So now as we have this logic of 'listening' to patients message - we need to also subscribe for example for specific floor info:
+Problem it solves: maintaining multiple subscriptions with different payloads, handling cleanup and creation for actions.
 
-So we would extend this class with props passing etc. Imagine there will be another entity that we need to do the same for it:
+Below you there is very simple approach of handling each Action .START_SUBSCRIBE starting polling and stopping it on STOP_SUBSCRIBE.
 
-We would have to duplicate exactly the same code, so instead I introduced: 
- SubscritionManager component - very simple component that abstracts this logic.
- 
- ```jsx harmony
+It doesn't allow for multiple subscriptions based on payload, duplicate subscriptions will run twice. Creating and destroying is written down by hand.
 
-export default class SubscriptionManager extends React.Component {
-  componentWillMount() {
-    this.props.subscribe(this.props.payload);
-  }
+```typescript
 
-  componentWillUnmount() {
-    this.props.unsubscribe(this.props.payload);
-  }
+const createChannel = (payload?) => eventChannel((emit) => {
+    const interval = setInterval(() =>
+        Promise.resolve(fetch()).then(emit),
+        1000
+    );
 
-  componentWillReceiveProps(newProps) {
-    if (!isEqual(this.props.payload, newProps.payload)) {
-      unsubscribe(this.props);
-      subscribe(newProps);
-    }
-  }
-
-  render() {
-    return this.props.children;
-  }
-}
-```
- 
-It's role is just to run subscribe action and unsubscribe when it's props changes it is mounted/unmounted.
-
-So you get generic handling of 'subscribe/unsubscribe' and usage looks like this:
-
-```javascript
-import {SubsriptionManager} from '../components'
-import {connect} from 'redux';
-
-const mapDispatchToProps = ({
-    subscribe: () => {
-        socket.on('patients', () => {})
-    }, 
-    unsubscribe: () => {
-        socket.off('patients');
-    }
+    return () => {clearInterval(interval)}; //Cleanup
 });
 
-export const ProvidePatients = connect(null, mapDispatchToProps)(SubscriptionManager);
-```
+export const startSubscription = function *() {
+    const channel = createChannel();
 
-It looks better, and is generic, however the main benefit that we get is props passing:
-
-```jsx harmony
-import {SubsriptionManager} from '../components'
-
-const mapDispatchToProps = ({
-    subscribe: (filter) => {
-        socket.on(`patients-${filter.floor}-floor`, () => {
+    while (true) {
+        const {action, cancel} = yield race({
+            action: take(channel),
+            cancel: take(STOP_SUBSCRIBE),
         });
-    }, 
-    unsubscribe: (filter) => {
-        socket.off(`patients-${filter.floor}-floor`);
+
+        if (action) {
+            yield action;
+        }
+
+        if (cancel) {
+            channel.close();
+            return;
+        }
     }
-});
+};
 
-const mapStateToProps = (state, ownProps) => ({
-    payload: ownProps
-})
-
-export const ProvidePatients = connect(null, mapDispatchToProps)(SubscriptionManager);
-
-
-<ProvidePatients floor={8} />
+export const watchPatientsSubscription = function *() {
+  yield takeLatest(START_SUBSCRIBE, startSubscription);
+};
 ```
 
-You can probably already see where this is going : 
-The manager will take care of subscribe/unsubscribe whenever the payload changes
-So you just need to define, what you want track and how do you handle it.
+With the same constraints but with library abstracting start/stop, code would look as below:
 
-Those are just examples, in samples I have extracted the actions for subscribe, unsubscribe to sagas.
-So provider just dispatches action with payloads. So you can save them in state, handle it however you see fit in saga.
+```typescript
 
-I hope SubscriptionManager - defends itself well.
+const createChannel = (payload?) => eventChannel((emit) => {
+    const interval = setInterval(() =>
+        Promise.resolve(fetch()).then(emit),
+        1000
+    );
 
+    return () => {clearInterval(interval)}; //Cleanup
+});
 
-The rest of the libraries are there to help you manage subscription/unsubscription running, restart handling etc.
+export const watchPatientsSubscription = function *() {
+    const startHandler = createStartHandler([STOP_SUBSCRIBE]);
+    yield takeLatest(START_SUBSCRIBE, startHandler(createChannel));
+};
+```
 
+This simplifies things quite a bit.
 
+With this approach you can either change implementation from pooling to socket just by modifing the `createChannel` method.
+You can also add state maintained subscriptions, which allow you for example to wrap each component that needs the `entity` and be
+sure that it will start pooling/fetching/listening to this only once, per unique payload.
