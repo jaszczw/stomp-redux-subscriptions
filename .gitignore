@@ -1,8 +1,5 @@
 node_modules
 .idea
-.awscache
-/simple-subscriptions/client/.awcache
+.awcache
 build
 lib
-*.awscache
-/examples/simple-subscriptions/client/.awcache
