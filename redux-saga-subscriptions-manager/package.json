@@ -1,7 +1,8 @@
 {
   "name": "redux-saga-subscriptions-manager",
   "typings" : "src/index.ts",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
+  "jsnext:main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
