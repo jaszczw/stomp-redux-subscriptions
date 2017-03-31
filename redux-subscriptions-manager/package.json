@@ -3,7 +3,7 @@
   "typings" : "src/index.ts",
   "main": "lib/index.js",
   "jsnext:main": "lib/index.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "author": "Wojciech Jaszczak",
   "repository": {
