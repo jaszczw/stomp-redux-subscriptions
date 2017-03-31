@@ -24,7 +24,6 @@ const getHandler = (emit, payload, fetch) => (message) => {
 
 const createChannel = (payload?) => eventChannel((emit) => {
   const fetch = getFetchEmit(emit, payload);
-  let channel = null, heartBeat;
   fetch();
 
   const sub = subscriptionsService.createSubscription({

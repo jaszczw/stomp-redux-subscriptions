@@ -44,7 +44,7 @@ export const createStartHandler = (stopSubActions: string[]) => (createChannel) 
     }
   };
 
-//Opinionated about subscription storing, selector - selector must return an array
+//TODO WJ: Opinionated about subscription storing, selection - very limiting approach, but simplifies things
 export const createSubscriptionHandler = (selector: SubscriptionsSelector, startType: string, stopType: string) =>
   function *({payload, method}): any {
     const subscriptionsState = yield select(selector, payload);
