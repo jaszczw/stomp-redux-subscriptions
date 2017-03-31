@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
   },
-  "version": "0.0.2",
+  "version": "0.0.4",
   "scripts": {
     "prepublish": "tsc"
   },
