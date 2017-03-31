@@ -7,6 +7,8 @@
     "type": "git",
     "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
   },
+  "license": "MIT",
+  "author": "Wojciech Jaszczak",
   "version": "0.0.4",
   "scripts": {
     "prepublish": "tsc"

@@ -4,6 +4,8 @@
   "main": "lib/index.js",
   "jsnext:main": "lib/index.js",
   "version": "0.0.4",
+  "license": "MIT",
+  "author": "Wojciech Jaszczak",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
