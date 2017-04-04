@@ -46,10 +46,10 @@
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-saga": "^0.14.3",
-    "redux-saga-subscriptions-manager": "0.0.2",
-    "redux-subscriptions-manager": "0.0.2",
+    "redux-saga-subscriptions-manager": "^0.0.9",
+    "redux-subscriptions-manager": "^0.0.8",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.0",
-    "stomp-subscriptions": "0.0.1"
+    "stomp-subscriptions": "^0.0.3"
   }
 }

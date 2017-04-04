@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@types/lodash@^4.14.54":
+"@types/lodash@^4.14.54", "@types/lodash@^4.14.55":
   version "4.14.56"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.56.tgz#e7ed952ca250c5bdfbf6e75598c137785c41170e"
 
@@ -28,10 +28,6 @@
   resolved "https://registry.yarnpkg.com/@types/redux-saga/-/redux-saga-0.10.5.tgz#80bf21078379ebc97387dbe56e44467b5677fa85"
   dependencies:
     redux-saga "*"
-
-"@types/reselect@^2.0.27":
-  version "2.0.27"
-  resolved "https://registry.yarnpkg.com/@types/reselect/-/reselect-2.0.27.tgz#78a53338a99bb1bc4b6aea0e1a9315a0e37e7383"
 
 abbrev@1:
   version "1.1.0"
@@ -2652,9 +2648,25 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
+redux-saga-subscriptions-manager@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/redux-saga-subscriptions-manager/-/redux-saga-subscriptions-manager-0.0.9.tgz#6ccf9d3f96fe59ce8c80807493580c0f0c14f23e"
+  dependencies:
+    "@types/lodash" "^4.14.55"
+    lodash "^4.17.4"
+    redux "^3.6.0"
+    redux-saga "^0.14.3"
+
 redux-saga@*, redux-saga@^0.14.3:
   version "0.14.3"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.14.3.tgz#28cd2c5b49cf780a1de25875765724150c630513"
+
+redux-subscriptions-manager@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/redux-subscriptions-manager/-/redux-subscriptions-manager-0.0.8.tgz#df80a18983df838cee3978669ce1efa076c55480"
+  dependencies:
+    "@types/lodash" "^4.14.55"
+    lodash "^4.17.4"
 
 redux-thunk@^2.2.0:
   version "2.2.0"
@@ -2763,9 +2775,9 @@ require-main-filename@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
 
-reselect@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-2.5.4.tgz#b7d23fdf00b83fa7ad0279546f8dbbbd765c7047"
+reselect@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.0.tgz#b2e35977f03048700028eaee3a8c0639e40e8f35"
 
 right-align@^0.1.1:
   version "0.1.3"
@@ -2915,6 +2927,13 @@ sshpk@^1.7.0:
 statuses@1, statuses@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.2.1.tgz#dded45cc18256d51ed40aec142489d5c61026d28"
+
+stomp-subscriptions@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/stomp-subscriptions/-/stomp-subscriptions-0.0.3.tgz#4e44c1834278628bf3c24b88e7afce25107578bb"
+  dependencies:
+    uuid "^3.0.1"
+    webstomp-client "^1.0.6"
 
 stream-browserify@^2.0.1:
   version "2.0.1"
@@ -3127,7 +3146,7 @@ utils-merge@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.0.tgz#0294fb922bb9375153541c4f7096231f287c8af8"
 
-uuid@^3.0.0:
+uuid@^3.0.0, uuid@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
@@ -3219,6 +3238,10 @@ webpack@^2.3.0:
     watchpack "^1.3.1"
     webpack-sources "^0.2.0"
     yargs "^6.0.0"
+
+webstomp-client@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/webstomp-client/-/webstomp-client-1.0.6.tgz#9fe1627dd48823cda5f4ade9d34672ac33c837e0"
 
 whatwg-fetch@>=0.10.0:
   version "2.0.3"

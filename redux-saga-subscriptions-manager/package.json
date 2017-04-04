@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "author": "Wojciech Jaszczak",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run build:es && npm run build:es5",
