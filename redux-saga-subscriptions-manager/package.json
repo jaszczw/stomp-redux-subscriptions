@@ -1,17 +1,20 @@
 {
   "name": "redux-saga-subscriptions-manager",
-  "typings" : "src/index.ts",
+  "typings": "src/index.ts",
   "main": "lib/index.js",
-  "jsnext:main": "lib/index.js",
+  "jsnext:main": "es/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaszczw/stomp-redux-subscriptions.git"
   },
   "license": "MIT",
   "author": "Wojciech Jaszczak",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "scripts": {
-    "prepublish": "tsc"
+    "prepublish": "npm run build",
+    "build": "npm run build:es && npm run build:es5",
+    "build:es": "rimraf es/ && tsc",
+    "build:es5": "rimraf lib/ && babel -d lib/ es/"
   },
   "dependencies": {
     "@types/lodash": "^4.14.55",
@@ -20,12 +23,16 @@
     "redux-saga": "^0.14.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "redux-subscriptions-manager": "0.0.8",
+    "rimraf": "^2.6.1",
     "ts-loader": "^2.0.2",
-    "typescript": "^2.2.1",
-    "webpack": "^2.2.1",
-    "redux-subscriptions-manager": "0.0.2"
+    "typescript": "^2.2.1"
   }
 }

@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "outDir": "lib",
+    "outDir": "es",
     "jsx": "preserve",
     "lib": [
       "dom",
@@ -15,7 +15,6 @@
     ]
   },
   "include": [
-    "localModules",
     "src"
   ],
   "exclude": [

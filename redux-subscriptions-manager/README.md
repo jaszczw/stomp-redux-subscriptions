@@ -1,5 +1,6 @@
 # Motivation
 
+//TODO WJ: ADd d.ts files for typescript code.
 Let's consider a page which displays patients widgets.
 
 ```

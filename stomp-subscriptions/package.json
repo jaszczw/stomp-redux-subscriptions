@@ -1,11 +1,12 @@
 {
   "name": "stomp-subscriptions",
   "typings" : "src/index.ts",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/index.ts",
+  "version": "0.0.3",
+  "description": "Idea of creating subscriptions system with stompjs",
+  "main": "lib/index.js",
+  "jsnext:main": "lib/index.js",
   "scripts": {
-    "postinstall": "tsc",
+    "prepublish": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
