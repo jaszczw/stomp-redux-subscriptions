@@ -13,8 +13,8 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run build:es && npm run build:es5",
-    "build:es": "tsc",
-    "build:es5": "babel -d lib/ es/"
+    "build:es": "rimraf es/ && tsc",
+    "build:es5": "rimraf lib/ && babel -d lib/ es/"
   },
   "dependencies": {
     "@types/lodash": "^4.14.55",
@@ -23,7 +23,6 @@
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
