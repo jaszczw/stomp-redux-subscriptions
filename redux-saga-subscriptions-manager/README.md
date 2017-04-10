@@ -155,18 +155,3 @@ So you can see that you can modify subscriptions handling quite easily depending
 
 
 
-//TODO WJ: Bollock
-You can imagine extensivness of this approach with:
-
-patientsSubState: [{fields: ['name','category']}, {{fields: ['name', 'age']];
-
-getMergedFields = (state, payload) => 
-mergeFields(state) // ['name', 'name','category','age']
-.getDiff(payload) //['age']
-
-Returing it would mean we call createChannel - which could then for example attach field to the listeners.
-
-
-
-
-
